@@ -1,6 +1,6 @@
-@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css');
-@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
-@import 'additional/reset';
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
+@import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
+@import "additional/reset";
 
 .list-group__head
 {
@@ -65,18 +65,23 @@
 }
 .list-group__move
 {
+	display: flex;
 	height: 24px;
 	width: 24px;
-}
-.list-group__move
-{
-	display: flex;
 }
 .list-group__title
 {
 	align-items: baseline;
 	display: flex;
 	flex-direction: row;
+}
+.link-group__item
+{
+	margin: 0 10px 0 0;
+	&:last-child
+	{
+		margin: 0;
+	}
 }
 .list-group__empty
 {
@@ -85,5 +90,4 @@
 .card
 {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	margin-top: 50px;
 }
