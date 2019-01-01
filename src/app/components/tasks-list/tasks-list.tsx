@@ -1,9 +1,42 @@
 import * as React from "react";
+import RLDD from "react-list-drag-and-drop/lib/RLDD";
+import "./drag-drop.css";
 
-export default class TasksList extends React.Component<TasksListProps, {}> {
+const tasks = require('./tasks.json');
+
+interface Item {
+    id: number;
+    title: string;
+    body: string;
+}
+
+export interface ExampleState {
+    items: Item[];
+}
+
+export default class TasksList extends React.Component<TasksListProps, { items:any }> {
+    constructor(props: {}) {
+        super(props);
+
+        this.state = {
+            items: tasks.tasks
+        };
+
+        this.itemRenderer = this.itemRenderer.bind(this);
+        this.handleRLDDChange = this.handleRLDDChange.bind(this);
+    }
+
     render() {
+        const items = this.state.items;
         return (
             <React.Fragment>
+                <RLDD
+                    cssClasses="example"
+                    items={items}
+                    itemRenderer={this.itemRenderer}
+                    onChange={this.handleRLDDChange}
+                />
+
                 <h2>Список задач</h2>
                 <div className="list-group">
                     <div className="list-group__item">
@@ -90,5 +123,23 @@ export default class TasksList extends React.Component<TasksListProps, {}> {
                 </div>
             </React.Fragment>
         );
+
+
+    }
+
+    private itemRenderer(item: Item, index: number): JSX.Element {
+        return (
+            <div className="item">
+                <p className="title">{item.title}</p>
+                <p className="body">{item.body}</p>
+                <div className="small">
+                    item.id: {item.id} - index: {index}
+                </div>
+            </div>
+        );
+    }
+
+    private handleRLDDChange(reorderedItems: Array<Item>) {
+        this.setState({ items: reorderedItems });
     }
 }

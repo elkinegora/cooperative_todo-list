@@ -1,0 +1,39 @@
+{
+    "tasks": [
+        {
+            "id": 0,
+            "title": "Первая задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 1,
+            "title": "Важная задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 2,
+            "title": "Нужная задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 3,
+            "title": "Очередная задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 4,
+            "title": "Серьезная задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 5,
+            "title": "Старая задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+            "id": 6,
+            "title": "Быстрая задача",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    ]
+}
