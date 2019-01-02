@@ -1,6 +1,6 @@
 import * as React from "react";
 import RLDD from "react-list-drag-and-drop/lib/RLDD";
-import "./drag-drop.css";
+import "./drag-drop.scss";
 
 const tasks = require('./tasks.json');
 
@@ -37,7 +37,6 @@ export default class TasksList extends React.Component<TasksListProps, { items:a
                     onChange={this.handleRLDDChange}
                 />
 
-                <h2>Список задач</h2>
                 <div className="list-group">
                     <div className="list-group__item">
                         <div className="list-group__head">

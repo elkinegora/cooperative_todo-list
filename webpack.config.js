@@ -20,6 +20,9 @@ module.exports = {
     performance: {
         hints: false
     },
+    stats: {
+        warnings: false
+    },
     target: "web",
     devtool: "inline-source-map",
     resolve: {
