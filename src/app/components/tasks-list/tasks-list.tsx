@@ -19,7 +19,7 @@ export default class TasksList extends React.Component<TasksListProps, { items:a
         super(props);
 
         this.state = {
-            items: tasks.tasks
+            items: tasks.tasks,
         };
 
         this.itemRenderer = this.itemRenderer.bind(this);
@@ -30,12 +30,12 @@ export default class TasksList extends React.Component<TasksListProps, { items:a
         const items = this.state.items;
         return (
             <React.Fragment>
-                <RLDD
-                    cssClasses="example"
-                    items={items}
-                    itemRenderer={this.itemRenderer}
-                    onChange={this.handleRLDDChange}
-                />
+                {/*<RLDD*/}
+                    {/*cssClasses="example"*/}
+                    {/*items={items}*/}
+                    {/*itemRenderer={this.itemRenderer}*/}
+                    {/*onChange={this.handleRLDDChange}*/}
+                {/*/>*/}
 
                 <div className="list-group">
                     <div className="list-group__item">

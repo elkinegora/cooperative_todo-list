@@ -14,7 +14,7 @@ export default class ComponentsHandler extends React.Component<ComponentsHandler
                             <InputField />
                             <h2>Список задач</h2>
                             <TasksList />
-                            <TasksStates />
+                            {/*<TasksStates />*/}
                         </div>
                     </div>
                 </div>
