@@ -1,5 +1,5 @@
-@import 'additional/bootstrap';
-@import 'additional/font-awesome';
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css');
+@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
 @import 'additional/reset';
 
 .list-group__head
@@ -95,4 +95,10 @@
 .content__container
 {
 	margin: 20px auto;
+}
+
+.userGreeter
+{
+	margin: 20px 0;
+	text-align: center;
 }

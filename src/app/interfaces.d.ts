@@ -1,4 +1,11 @@
 interface ComponentsHandlerProps {}
 interface InputFieldProps {}
-interface TasksListProps {}
+interface InputFieldState {
+    term: string;
+    items: string[];
+}
+interface TasksListProps {
+    items: any
+}
+interface TasksListStates {}
 interface TasksStatesProps {}
