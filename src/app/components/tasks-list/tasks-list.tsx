@@ -26,7 +26,7 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                                                 <button className="btn-group__edit"><i className="far fa-edit" /></button>
                                             </div>
                                             <div className="btn-group__icon">
-                                                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.props.onClose.bind(this, index)}><span aria-hidden="true">&times;</span></button>
                                             </div>
                                         </div>
                                     </div>

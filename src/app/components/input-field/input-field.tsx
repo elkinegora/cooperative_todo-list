@@ -23,6 +23,12 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         });
     };
 
+    deleteHandler(index:any) {
+        const items = this.state.items.concat();
+        items.splice(index, 1);
+        this.setState({items});
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -32,7 +38,9 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                         <button className="btn btn-outline-secondary" onClick={this.onSubmit} type="button" id="btn-add">Добавить</button>
                     </div>
                 </div>
-                <TasksList items={this.state.items} />
+                <TasksList
+                    items={this.state.items}
+                    onClose={this.deleteHandler.bind(this)}/>
             </React.Fragment>
         );
     }
