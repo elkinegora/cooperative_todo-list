@@ -17,10 +17,15 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
 
     onSubmit = (event:any) => {
         event.preventDefault();
-        this.setState({
-            term: '',
-            items: [...this.state.items, this.state.term]
-        });
+        if(this.state.term != '') {
+            this.setState({
+                term: '',
+                items: [...this.state.items, this.state.term]
+            });
+        } else {
+            alert('Задача должна иметь текст. Попробуй введи его.')
+        }
+
     };
 
     deleteHandler(index:any) {
