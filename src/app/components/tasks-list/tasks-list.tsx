@@ -7,8 +7,15 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
     render() {
         return (
             <React.Fragment>
-                {/*<DndExample />*/}
-                <h2>Список задач</h2>
+                {/*<DndExample />*/
+                    this.props.items != 0
+                        ?
+                        <React.Fragment>
+                            <h2>Список задач</h2>
+                        </React.Fragment>
+                        :
+                        ''
+                }
                 <div className="list-group">
                     { this.props.items != 0
                         ? this.props.items.map((item:any, index:any) =>
