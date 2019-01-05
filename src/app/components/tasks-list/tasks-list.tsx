@@ -1,13 +1,13 @@
 import * as React from "react";
-import DndExample from "./drag-and-drop/dnd";
 import VerstkaExample from "../TestFolder/verstka-example";
+import SortableComponent from "./smooth-drag-and-drop/smooth-dnd";
 
 export default class TasksList extends React.Component<TasksListProps, TasksListStates> {
 
     render() {
         return (
             <React.Fragment>
-                {/*<DndExample />*/}
+                <SortableComponent />
                 <h2>Список задач</h2>
                 <div className="list-group">
                     { this.props.items != 0
