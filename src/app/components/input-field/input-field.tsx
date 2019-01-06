@@ -26,7 +26,6 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         } else {
             alert('Задача должна иметь текст. Попробуй введи его.')
         }
-
     };
 
     deleteHandler(index:any) {
@@ -37,7 +36,6 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
     };
 
     editHandler(index:any) {
-
         const items = this.state.items.concat();
         // items[index].push({readOnly: true});
         // this.setState({items});

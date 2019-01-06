@@ -1,20 +1,20 @@
 import * as React from "react";
-import DndExample from "./drag-and-drop/dnd";
+import SortableComponent from "./smooth-drag-and-drop/smooth-dnd";
 import VerstkaExample from "../TestFolder/verstka-example";
 
 export default class TasksList extends React.Component<TasksListProps, TasksListStates> {
-
     render() {
         return (
             <React.Fragment>
-                {/*<DndExample />*/
+                <SortableComponent />
+                {
                     this.props.items != 0
                         ?
                         <React.Fragment>
                             <h2>Список задач</h2>
                         </React.Fragment>
                         :
-                        ''
+                        null
                 }
                 <div className="list-group">
                     { this.props.items != 0
@@ -31,7 +31,7 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                                         <div className="btn-group">
                                             <div className="btn-group__icon">
                                                 <button className="btn-group__save">
-                                                    <i className="far fa-save"></i>
+                                                    <i className="far fa-save" />
                                                 </button>
                                             </div>
                                             <div className="btn-group__icon">
