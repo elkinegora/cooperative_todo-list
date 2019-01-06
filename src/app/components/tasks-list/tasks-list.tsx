@@ -24,13 +24,13 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                                     <div className="list-group__head">
                                         <div className="list-group__title">
                                             <div className="btn-group">
-                                                <button className="btn-group__complete"><i className="fas fa-arrows-alt" /></button>
+                                                <button className="btn-group__move"><i className="fas fa-arrows-alt" /></button>
                                             </div>
-                                            { item }
+                                            <input type="text" className="list-group__name" readOnly={true} value={item}/>
                                         </div>
                                         <div className="btn-group">
                                             <div className="btn-group__icon">
-                                                <button className="btn-group__edit"><i className="far fa-edit" /></button>
+                                                <button className="btn-group__edit" onClick={this.props.onEdit.bind(this, index)}><i className="far fa-edit" /></button>
                                             </div>
                                             <div className="btn-group__icon">
                                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.props.onClose.bind(this, index)}><span aria-hidden="true">&times;</span></button>
