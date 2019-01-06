@@ -1,12 +1,26 @@
 import * as React from "react";
 import SortableComponent from "./smooth-drag-and-drop/smooth-dnd";
 import VerstkaExample from "../TestFolder/verstka-example";
+import { arrayMove, SortableContainer, SortableElement } from 'react-sortable-hoc';
+
+const SortableItem = SortableElement(({value}: {value: string}) =>
+    <li>{value}</li>
+);
+
+const SortableList = SortableContainer(({items}: {items: string[]}) => {
+    return (
+        <ul>
+            {items.map((value, index) => (
+                <SortableItem key={`item-${index}`} index={index} value={value} />
+            ))}
+        </ul>
+    );
+});
 
 export default class TasksList extends React.Component<TasksListProps, TasksListStates> {
     render() {
         return (
             <React.Fragment>
-                <SortableComponent />
                 {
                     this.props.items != 0
                         ?
@@ -16,6 +30,7 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                         :
                         null
                 }
+                <SortableList items={this.props.items} onSortEnd={this.onSortEnd} />
                 <div className="list-group">
                     { this.props.items != 0
                         ? this.props.items.map((item:any, index:any) =>
@@ -55,4 +70,9 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
             </React.Fragment>
         );
     }
+    private onSortEnd = ({oldIndex, newIndex}: {oldIndex: number, newIndex: number}) => {
+        this.setState({
+            items: arrayMove(this.props.items, oldIndex, newIndex),
+        });
+    };
 }
