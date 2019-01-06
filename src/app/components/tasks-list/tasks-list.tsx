@@ -30,6 +30,11 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                                         </div>
                                         <div className="btn-group">
                                             <div className="btn-group__icon">
+                                                <button className="btn-group__save">
+                                                    <i className="far fa-save"></i>
+                                                </button>
+                                            </div>
+                                            <div className="btn-group__icon">
                                                 <button className="btn-group__edit" onClick={this.props.onEdit.bind(this, index)}><i className="far fa-edit" /></button>
                                             </div>
                                             <div className="btn-group__icon">

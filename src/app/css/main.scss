@@ -26,13 +26,17 @@
 	opacity: 0;
 	transition: 0.2s;
 }
-.btn-group__edit, .btn-group__complete
+.btn-group__save {
+	display: none;
+}
+
+.btn-group__edit, .btn-group__complete, .btn-group__move, .btn-group__save
 {
 	background: none;
 	border: none;
 	outline: none;
 }
-.btn-group__complete
+.btn-group__complete, .btn-group__move
 {
 	padding: 0 10px;
 }
@@ -47,14 +51,16 @@
 	padding-left: 35px;
 	text-decoration: line-through;
 }
-.list-group__head:hover
+.list-group__head:hover,
+.list-group__head:hover .list-group__name
 {
 	background-color: #F8F9FA;
 	color: #495057;
 	cursor: pointer;
 	text-decoration: none;
 }
-.list-group__head:active
+.list-group__head:active,
+.list-group__head:active .list-group__name
 {
 	background-color: #E9ECEF;
 	color: #212529;
@@ -74,6 +80,32 @@
 	align-items: baseline;
 	display: flex;
 	flex-direction: row;
+	width: 100%;
+}
+.list-group__name {
+	width: 100%;
+	border: 1px solid transparent;
+	outline: none;
+}
+.list-group--edit .list-group__name{
+	margin-left: 20px;
+	padding-left: 15px;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	background: #fff!important;
+}
+.list-group--edit .btn-group__save {
+	display: inline-block;
+	margin-left: 10px;
+}
+.list-group--edit .btn-group__move,
+.list-group--edit .btn-group__edit,
+.list-group--edit .close{
+	display: none;
+}
+.list-group--edit .btn-group {
+	opacity: 1;
 }
 .link-group__item
 {
@@ -87,6 +119,7 @@
 {
 	padding: 7px 0;
 }
+
 .card
 {
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);

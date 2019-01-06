@@ -7,6 +7,7 @@ interface InputFieldState {
 interface TasksListProps {
     items: any;
     onClose: any;
+    onEdit: any;
 }
 interface TasksListStates {}
 interface TasksStatesProps {}

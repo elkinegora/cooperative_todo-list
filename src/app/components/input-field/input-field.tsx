@@ -22,6 +22,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                 term: '',
                 items: [...this.state.items, this.state.term]
             });
+            console.log(this.state)
         } else {
             alert('Задача должна иметь текст. Попробуй введи его.')
         }
@@ -32,6 +33,15 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         const items = this.state.items.concat();
         items.splice(index, 1);
         this.setState({items});
+        console.log(items)
+    };
+
+    editHandler(index:any) {
+
+        const items = this.state.items.concat();
+        // items[index].push({readOnly: true});
+        // this.setState({items});
+        console.log(items);
     };
 
     render() {
@@ -45,7 +55,8 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                 </div>
                 <TasksList
                     items={this.state.items}
-                    onClose={this.deleteHandler.bind(this)}/>
+                    onClose={this.deleteHandler.bind(this)}
+                    onEdit={this.editHandler.bind(this)}/>
             </React.Fragment>
         );
     }
