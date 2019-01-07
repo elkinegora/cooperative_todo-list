@@ -21,15 +21,11 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
     render() {
         return (
             <React.Fragment>
-                {
-                    this.props.items != 0
-                        ?
-                        <React.Fragment>
-                            <h2>Список задач</h2>
-                        </React.Fragment>
-                        :
-                        null
-                }
+                { this.props.items != 0
+                    ? <React.Fragment>
+                        <h2>Список задач</h2>
+                    </React.Fragment>
+                    : null }
                 <SortableList items={this.props.items} onSortEnd={this.onSortEnd} />
                 <div className="list-group">
                     { this.props.items != 0
@@ -45,9 +41,7 @@ export default class TasksList extends React.Component<TasksListProps, TasksList
                                         </div>
                                         <div className="btn-group">
                                             <div className="btn-group__icon">
-                                                <button className="btn-group__save">
-                                                    <i className="far fa-save" />
-                                                </button>
+                                                <button className="btn-group__save"><i className="far fa-save" /></button>
                                             </div>
                                             <div className="btn-group__icon">
                                                 <button className="btn-group__edit" onClick={this.props.onEdit.bind(this, index)}><i className="far fa-edit" /></button>
