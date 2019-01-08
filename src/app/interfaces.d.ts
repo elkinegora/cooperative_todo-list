@@ -2,7 +2,7 @@ interface ComponentsHandlerProps {}
 interface InputFieldProps {}
 interface InputFieldState {
     term: string;
-    items: string[];
+    items: any;
 }
 interface TasksListProps {
     items: any;
