@@ -1,10 +1,10 @@
 import * as React from "react";
 import VerstkaExample from "../TestFolder/verstka-example";
-import { arrayMove, SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { arrayMove, SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 
 export default class InputField extends React.Component<InputFieldProps, InputFieldState> {
 
-    constructor(props:any) {
+    constructor(props: any) {
         super(props);
         this.state = {
             term: '',
@@ -12,31 +12,29 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         };
     }
 
-    onChange = (event:any) => {
+    onChange = (event: any) => {
         this.setState({term: event.target.value});
     };
 
-    onSubmit = (event:any) => {
+    onSubmit = (event: any) => {
         event.preventDefault();
         if(this.state.term != '') {
             this.setState({
                 term: '',
                 items: [...this.state.items, this.state.term]
             });
-            console.log(this.state)
         } else {
             alert('Задача должна иметь текст. Попробуй введи его.')
         }
     };
 
-    deleteHandler(index:any) {
+    deleteHandler(index: any) {
         const items = this.state.items.concat();
         items.splice(index, 1);
         this.setState({items});
-        console.log(items)
     };
 
-    editHandler(index:any) {
+    editHandler(index: any) {
         const items = this.state.items.concat();
         // items[index].push({readOnly: true});
         // this.setState({items});
@@ -45,12 +43,14 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
 
     render() {
 
+        const DragHandle = SortableHandle(() => <button className="btn-group__move"><i className="fas fa-arrows-alt" /></button>);
+
         const SortableItem = SortableElement(({value}: {value: string}) =>
             <div className="list-group__item">
                 <div className="list-group__head">
                     <div className="list-group__title">
                         <div className="btn-group">
-                            <button className="btn-group__move"><i className="fas fa-arrows-alt" /></button>
+                            <DragHandle />
                         </div>
                         <input type="text" className="list-group__name" readOnly={true} value={value}/>
                     </div>
@@ -93,7 +93,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                         <h2>Список задач</h2>
                     </React.Fragment>
                     : null }
-                <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+                <SortableList items={this.state.items} onSortEnd={this.onSortEnd} useDragHandle={true} />
                 {/*Компонент VerstkaExample нужен исключительно для примера верстки которая была создана на начальных этапах
                  Для того чтобы использовать его, надо раскомментировать компонент VerstkaExample ниже под этим комментарием */}
                 {/*<VerstkaExample />*/}

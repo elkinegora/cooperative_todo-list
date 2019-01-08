@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default class TasksStates extends React.Component<TasksStatesProps, {}> {
+export default class TasksStates extends React.Component<TasksStatesProps, TasksStatesState> {
     render() {
         return (
             <React.Fragment>
