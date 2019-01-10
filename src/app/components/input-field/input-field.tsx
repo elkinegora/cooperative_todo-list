@@ -126,7 +126,9 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
     };
 
     resetAction = (value: Item, event: any) => {
-        event.stopPropagation();
+        if(value.completed) {
+            event.stopPropagation();
+        }
     };
 
     render() {
@@ -140,7 +142,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                         <div className="btn-group">
                             <DragHandle />
                         </div>
-                        <input type="text" className="list-group__name" readOnly={value.readonly} onClick={this.resetAction.bind(this, value)} onChange={this.onEditTask.bind(this, value)} value={value.title}/>
+                        <input type="text" className="list-group__name" readOnly={value.readonly}  onClick={this.resetAction.bind(this, value)} onChange={this.onEditTask.bind(this, value)} value={value.title}/>
                     </div>
                     <div className="btn-group">
                         <div className="btn-group__icon">
