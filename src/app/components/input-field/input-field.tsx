@@ -26,9 +26,13 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
     };
 
     onEditTask = (value: Item, event: any) => {
-
         const items = this.state.items.concat();
-        items[value.id].title = event.target.value;
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                items[index].title = event.target.value;
+            }
+        });
+
         this.setState({items});
 
     };
@@ -52,25 +56,72 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         }
     };
 
-    deleteHandler(index: any) {
-         const items = this.state.items.concat();
-        items.splice(index, 1);
-        this.setState({items});
-        console.log(items[index]);
-        console.log(index);
-    };
-
-    editHandler(value: Item) {
+    deleteHandler = (value: Item, event: any) => {
+        event.stopPropagation();
         const items = this.state.items.concat();
-        items[value.id].className = 'list-group__head list-group--edit';
-        items[value.id].readonly = false;
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                items.splice(index, 1);
+            }
+        });
         this.setState({items});
     };
 
-    saveHandler(value: Item) {
+    editHandler = (value: Item, event: any) => {
+        event.stopPropagation();
         const items = this.state.items.concat();
-        items[value.id].className = 'list-group__head';
-        items[value.id].title = value.title;
+
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                items[index].className = 'list-group__head list-group--edit';
+                items[index].readonly = false;
+            }
+        });
+
+        this.setState({items});
+    };
+
+    saveHandler = (value: Item, event: any) => {
+        event.stopPropagation();
+        const items = this.state.items.concat();
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                items[index].className = 'list-group__head';
+                items[index].title = value.title;
+                items[index].readonly = true;
+            }
+        });
+        this.setState({items});
+    };
+
+    completeHandler = (value: Item) => {
+
+        const items = this.state.items.concat();
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                if(items[index].className == 'list-group__head list-group--completed') {
+                    items[index].className = 'list-group__head';
+                    items[index].completed = false;
+                } else {
+                    items[index].className = 'list-group__head list-group--completed';
+                    items[index].completed = true;
+                }
+            }
+        });
+        this.setState({items});
+    };
+
+    repeatHandler = (value: Item, event: any) => {
+        event.stopPropagation();
+        const items = this.state.items.concat();
+        items.map((values, index) => {
+            if(values.id == value.id) {
+                if(items[index].className == 'list-group__head list-group--completed') {
+                    items[index].className = 'list-group__head';
+                    items[index].completed = false;
+                }
+            }
+        });
         this.setState({items});
     };
 
@@ -80,7 +131,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
 
         const SortableItem = SortableElement(({value}: {value: Item}) =>
             <div className="list-group__item">
-                <div className={value.className}>
+                <div className={value.className} onClick={this.completeHandler.bind(this, value)}>
                     <div className="list-group__title">
                         <div className="btn-group">
                             <DragHandle />
@@ -89,7 +140,14 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                     </div>
                     <div className="btn-group">
                         <div className="btn-group__icon">
-                            <button className="btn-group__save" onClick={this.saveHandler.bind(this, value)}><i className="far fa-save" /></button>
+                            <button className="btn-group__save" onClick={this.saveHandler.bind(this, value)}>
+                                <i className="far fa-save" />
+                            </button>
+                        </div>
+                        <div className="btn-group__icon">
+                            <button className="btn-group__repeat" onClick={this.repeatHandler.bind(this, value)}>
+                                <i className="fas fa-redo-alt"></i>
+                            </button>
                         </div>
                         <div className="btn-group__icon">
                             <button className="btn-group__edit" onClick={this.editHandler.bind(this, value)}>
@@ -97,7 +155,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                             </button>
                         </div>
                         <div className="btn-group__icon">
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.deleteHandler.bind(this)}>
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.deleteHandler.bind(this, value)}>
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
