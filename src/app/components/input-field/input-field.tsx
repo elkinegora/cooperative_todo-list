@@ -26,6 +26,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
     };
 
     onEditTask = (value: Item, event: any) => {
+        event.preventDefault();
         const items = this.state.items.concat();
         items.map((values, index) => {
             if(values.id == value.id) {
@@ -95,7 +96,6 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
     };
 
     completeHandler = (value: Item) => {
-
         const items = this.state.items.concat();
         items.map((values, index) => {
             if(values.id == value.id) {
@@ -125,6 +125,10 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
         this.setState({items});
     };
 
+    resetAction = (value: Item, event: any) => {
+        event.stopPropagation();
+    };
+
     render() {
 
         const DragHandle = SortableHandle(() => <button className="btn-group__move"><i className="fas fa-arrows-alt" /></button>);
@@ -136,7 +140,7 @@ export default class InputField extends React.Component<InputFieldProps, InputFi
                         <div className="btn-group">
                             <DragHandle />
                         </div>
-                        <input type="text" className="list-group__name" readOnly={value.readonly} onChange={this.onEditTask.bind(this, value)} value={value.title}/>
+                        <input type="text" className="list-group__name" readOnly={value.readonly} onClick={this.resetAction.bind(this, value)} onChange={this.onEditTask.bind(this, value)} value={value.title}/>
                     </div>
                     <div className="btn-group">
                         <div className="btn-group__icon">
