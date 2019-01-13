@@ -17,7 +17,10 @@ interface TasksStatesState {}
 
 interface ListTaskProps {
     items: any;
+    onChangeItemTask: any;
     deleteTask: any;
+    editTask: any;
+    saveTask: any;
 }
 interface ListTaskState {
     items: any;
@@ -25,8 +28,11 @@ interface ListTaskState {
 }
 interface ItemTaskProps {
     item: any;
-    key: number;
+    index: number;
+    onChangeItemTask: any;
     deleteTask: any;
+    editTask: any;
+    saveTask: any;
 }
 interface ItemTaskState{
     item: any;
