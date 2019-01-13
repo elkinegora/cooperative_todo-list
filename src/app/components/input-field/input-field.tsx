@@ -7,10 +7,10 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         this.state = {
             term: '',
             items: [
-                {id: 0, title: 'Задача 1', completed: false, readonly: true},
-                {id: 1, title: 'Задача 2', completed: false, readonly: true},
-                {id: 2, title: 'Задача 3', completed: false, readonly: true},
-                {id: 3, title: 'Задача 4', completed: false, readonly: true}
+                {id: 0, title: 'Задача 1', completed: false, readonly: true, invisible: false},
+                {id: 1, title: 'Задача 2', completed: false, readonly: true, invisible: false},
+                {id: 2, title: 'Задача 3', completed: false, readonly: true, invisible: false},
+                {id: 3, title: 'Задача 4', completed: false, readonly: true, invisible: false}
             ]
         }
     }
@@ -34,6 +34,7 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                 title: this.state.term,
                 completed: false,
                 readonly: true,
+                invisible: true
             };
             this.setState({
                 term: '',
@@ -62,8 +63,42 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         this.setState({items});
     };
 
+    completedTask = (index: number) => {
+        const items = this.state.items.concat();
+
+        if (items[index].completed) {
+            items[index].completed = false;
+        } else {
+            items[index].completed = true;
+        }
+
+        this.setState({items});
+    };
+
+    showActiveTasks = () => {
+
+        const items = this.state.items.concat();
+
+        items.map((item: any , index: number) => {
+
+            if(item.completed){
+                items[index].invisible = true;
+            }
+
+        });
+        console.log(items);
+        this.setState({items});
+
+    };
 
     render() {
+
+        const items = this.state.items.concat();
+
+        //     .sort(function(a: any, b:any){
+        //     return a.completed - b.completed;
+        // });
+
         return (
             <React.Fragment>
                 <div className="content__container container">
@@ -77,12 +112,17 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                                         <button className="btn btn-outline-secondary" onClick={this.onSubmit} type="button">Добавить</button>
                                     </div>
                                 </form>
-                                <ListTask items={this.state.items}
+                                <ListTask items={items}
                                           onChangeItemTask={this.onChangeItemTask}
                                           deleteTask={this.deleteTask}
                                           editTask={this.editTask}
                                           saveTask={this.saveTask}
+                                          completedTask={this.completedTask}
+
                                 />
+                                {/*<TasksStates items={this.state.items}*/}
+                                             {/*showActiveTasks={this.showActiveTasks}*/}
+                                {/*/>*/}
                             </div>
                         </div>
                     </div>
@@ -93,6 +133,21 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
 
 }
 
+class TasksStates extends React.Component<TasksStatesProps, TasksStatesState> {
+    render() {
+        return (
+            <React.Fragment>
+                <div className="link-group text-center">
+                    <a href="#" className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">
+                        {this.props.items.length}
+                    </span></a>
+                    <a href="#" className="link-group__item" onClick={this.props.showActiveTasks}>Активные <span className="badge badge-primary badge-pill">8</span></a>
+                    <a href="#" className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">6</span></a>
+                </div>
+            </React.Fragment>
+        );
+    }
+}
 
 class ListTask extends React.Component<ListTaskProps, ListTaskState> {
 
@@ -107,6 +162,8 @@ class ListTask extends React.Component<ListTaskProps, ListTaskState> {
                               deleteTask={this.props.deleteTask}
                               editTask={this.props.editTask}
                               saveTask={this.props.saveTask}
+                              completedTask={this.props.completedTask}
+
                     />
                 ))}
             </React.Fragment>
@@ -126,15 +183,28 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
             className = className + ' list-group--edit';
         }
 
+       if(item.completed) {
+           className = className + ' list-group--completed';
+       }
+
+       if(item.invisible) {
+           className = className + ' list-group--invisible';
+       }
+
         return (
             <React.Fragment>
             <div className="list-group__item">
                 <div className={className}>
                     <div className="list-group__title">
-                        <div className="btn-group">
-
+                        <div className="btn-group btn-group__check">
+                            <label htmlFor={`item-${this.props.index}`}>
+                                <input id={`item-${this.props.index}`} type="checkbox" name="check" onChange={() => this.props.completedTask(this.props.index)} checked={item.completed}/>
+                                <span className="label-text"></span>
+                            </label>
                         </div>
-                        <input type="text" className="list-group__name" onChange={(e) => this.props.onChangeItemTask(e, this.props.index)} readOnly={item.readonly}  value={item.title}/>
+                        <div className="list-group__wraptitle">
+                            <input type="text" className="list-group__name" onChange={(e) => this.props.onChangeItemTask(e, this.props.index)} readOnly={item.readonly}  value={item.title}/>
+                        </div>
                     </div>
                     <div className="btn-group">
                         <div className="btn-group__icon">
@@ -143,7 +213,7 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
                             </button>
                         </div>
                         <div className="btn-group__icon">
-                            <button className="btn-group__repeat">
+                            <button className="btn-group__repeat" onClick={() => this.props.completedTask(this.props.index)}>
                                 <i className="fas fa-redo-alt"></i>
                             </button>
                         </div>

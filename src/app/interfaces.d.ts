@@ -3,6 +3,7 @@ interface Item {
     title: string;
     completed: boolean;
     readonly: boolean;
+    invisible: boolean;
 }
 
 interface ComponentsHandlerState {}
@@ -12,7 +13,10 @@ interface ToDoListState {
     term: string;
     items: Item[];
 }
-interface TasksStatesProps {}
+interface TasksStatesProps {
+    items: Item[];
+    showActiveTasks: any;
+}
 interface TasksStatesState {}
 
 interface ListTaskProps {
@@ -21,6 +25,7 @@ interface ListTaskProps {
     deleteTask: any;
     editTask: any;
     saveTask: any;
+    completedTask: any;
 }
 interface ListTaskState {
     items: any;
@@ -33,6 +38,7 @@ interface ItemTaskProps {
     deleteTask: any;
     editTask: any;
     saveTask: any;
+    completedTask:any;
 }
 interface ItemTaskState{
     item: any;
