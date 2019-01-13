@@ -19,9 +19,10 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         this.setState({term: event.target.value});
     };
 
-    onChangeItemTask = (e: any, index: number) => {
+    onChangeItemTask = (event: any, index: number) => {
         const items = this.state.items.concat();
-        items[index].title = e.target.value;
+
+        items[index].title = event.target.value;
         this.setState({items});
     };
 
@@ -47,18 +48,21 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
 
     deleteTask = (index: number) => {
         const items = this.state.items.concat();
+
         items.splice(index, 1);
         this.setState({items});
     };
 
     editTask = (index: number) => {
         const items = this.state.items.concat();
+
         items[index].readonly = false;
         this.setState({items});
     };
 
     saveTask = (index: number) => {
         const items = this.state.items.concat();
+
         items[index].readonly = true;
         this.setState({items});
     };
@@ -66,33 +70,23 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
     completedTask = (index: number) => {
         const items = this.state.items.concat();
 
-        if (items[index].completed) {
-            items[index].completed = false;
-        } else {
-            items[index].completed = true;
-        }
-
+        items[index].completed ? (items[index].completed = false) : (items[index].completed = true);
         this.setState({items});
     };
 
     showActiveTasks = () => {
-
         const items = this.state.items.concat();
 
         items.map((item: any , index: number) => {
-
             if(item.completed){
                 items[index].invisible = true;
             }
-
         });
         console.log(items);
         this.setState({items});
-
     };
 
     render() {
-
         const items = this.state.items.concat();
 
         //     .sort(function(a: any, b:any){
@@ -117,9 +111,7 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                                           deleteTask={this.deleteTask}
                                           editTask={this.editTask}
                                           saveTask={this.saveTask}
-                                          completedTask={this.completedTask}
-
-                                />
+                                          completedTask={this.completedTask} />
                                 {/*<TasksStates items={this.state.items}*/}
                                              {/*showActiveTasks={this.showActiveTasks}*/}
                                 {/*/>*/}
@@ -130,29 +122,22 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
             </React.Fragment>
         );
     }
-
 }
 
 class TasksStates extends React.Component<TasksStatesProps, TasksStatesState> {
     render() {
         return (
-            <React.Fragment>
-                <div className="link-group text-center">
-                    <a href="#" className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">
-                        {this.props.items.length}
-                    </span></a>
-                    <a href="#" className="link-group__item" onClick={this.props.showActiveTasks}>Активные <span className="badge badge-primary badge-pill">8</span></a>
-                    <a href="#" className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">6</span></a>
-                </div>
-            </React.Fragment>
+            <div className="link-group text-center">
+                <a href="#" className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">{this.props.items.length}</span></a>
+                <a href="#" className="link-group__item" onClick={this.props.showActiveTasks}>Активные <span className="badge badge-primary badge-pill">8</span></a>
+                <a href="#" className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">6</span></a>
+            </div>
         );
     }
 }
 
 class ListTask extends React.Component<ListTaskProps, ListTaskState> {
-
     render() {
-
         return(
             <React.Fragment>
                 {this.props.items.map((item: any , index: number) => (
@@ -163,22 +148,18 @@ class ListTask extends React.Component<ListTaskProps, ListTaskState> {
                               editTask={this.props.editTask}
                               saveTask={this.props.saveTask}
                               completedTask={this.props.completedTask}
-
-                    />
+                              key={index} />
                 ))}
             </React.Fragment>
-
         );
     }
-
 }
 
 class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
-
    render() {
         const item = this.props.item;
-
         let className = 'list-group__head';
+
         if(!item.readonly) {
             className = className + ' list-group--edit';
         }
@@ -193,47 +174,46 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
 
         return (
             <React.Fragment>
-            <div className="list-group__item">
-                <div className={className}>
-                    <div className="list-group__title">
-                        <div className="btn-group btn-group__check">
-                            <label htmlFor={`item-${this.props.index}`}>
-                                <input id={`item-${this.props.index}`} type="checkbox" name="check" onChange={() => this.props.completedTask(this.props.index)} checked={item.completed}/>
-                                <span className="label-text"></span>
-                            </label>
+                <div className="list-group__item">
+                    <div className={className}>
+                        <div className="list-group__title">
+                            <div className="btn-group btn-group__check">
+                                <label htmlFor={`item-${this.props.index}`}>
+                                    <input id={`item-${this.props.index}`} type="checkbox" name="check" onChange={() => this.props.completedTask(this.props.index)} checked={item.completed}/>
+                                    <span className="label-text" />
+                                </label>
+                            </div>
+                            <div className="list-group__wraptitle">
+                                <input type="text" className="list-group__name" onChange={(e) => this.props.onChangeItemTask(e, this.props.index)} readOnly={item.readonly}  value={item.title}/>
+                            </div>
                         </div>
-                        <div className="list-group__wraptitle">
-                            <input type="text" className="list-group__name" onChange={(e) => this.props.onChangeItemTask(e, this.props.index)} readOnly={item.readonly}  value={item.title}/>
+                        <div className="btn-group">
+                            <div className="btn-group__icon">
+                                <button className="btn-group__save" onClick={() => this.props.saveTask(this.props.index)}>
+                                    <i className="far fa-save" />
+                                </button>
+                            </div>
+                            <div className="btn-group__icon">
+                                <button className="btn-group__repeat" onClick={() => this.props.completedTask(this.props.index)}>
+                                    <i className="fas fa-redo-alt" />
+                                </button>
+                            </div>
+                            <div className="btn-group__icon">
+                                <button className="btn-group__edit" onClick={() => this.props.editTask(this.props.index)}>
+                                    <i className="far fa-edit" />
+                                </button>
+                            </div>
+                            <div className="btn-group__icon">
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => this.props.deleteTask(this.props.index)}>
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div className="btn-group">
-                        <div className="btn-group__icon">
-                            <button className="btn-group__save" onClick={() => this.props.saveTask(this.props.index)}>
-                                <i className="far fa-save" />
-                            </button>
-                        </div>
-                        <div className="btn-group__icon">
-                            <button className="btn-group__repeat" onClick={() => this.props.completedTask(this.props.index)}>
-                                <i className="fas fa-redo-alt"></i>
-                            </button>
-                        </div>
-                        <div className="btn-group__icon">
-                            <button className="btn-group__edit" onClick={() => this.props.editTask(this.props.index)}>
-                                <i className="far fa-edit" />
-                            </button>
-                        </div>
-                        <div className="btn-group__icon">
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => this.props.deleteTask(this.props.index)}>
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
+                    <div className="list-group__empty" />
                 </div>
-                <div className="list-group__empty" />
-            </div>
             </React.Fragment>
         );
     }
-
 }
 

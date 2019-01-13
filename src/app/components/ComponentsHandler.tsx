@@ -5,9 +5,7 @@ import ToDoList from "./input-field/input-field";
 export default class ComponentsHandler extends React.Component<ComponentsHandlerProps, ComponentsHandlerState> {
     render(){
         return(
-            <React.Fragment>
-                <ToDoList />
-            </React.Fragment>
+            <ToDoList />
         );
     }
 }
