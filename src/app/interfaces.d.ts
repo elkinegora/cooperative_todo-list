@@ -3,15 +3,31 @@ interface Item {
     title: string;
     completed: boolean;
     readonly: boolean;
-    className: string;
 }
 
 interface ComponentsHandlerState {}
 interface ComponentsHandlerProps {}
-interface InputFieldProps {}
-interface InputFieldState {
+interface ToDoListProps {}
+interface ToDoListState {
     term: string;
     items: Item[];
 }
 interface TasksStatesProps {}
 interface TasksStatesState {}
+
+interface ListTaskProps {
+    items: any;
+    deleteTask: any;
+}
+interface ListTaskState {
+    items: any;
+
+}
+interface ItemTaskProps {
+    item: any;
+    key: number;
+    deleteTask: any;
+}
+interface ItemTaskState{
+    item: any;
+}
