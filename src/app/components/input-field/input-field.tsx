@@ -42,7 +42,6 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         } else {
             alert('Задача должна иметь текст. Попробуй введи его.')
         }
-
     };
 
     deleteTask = (index: number) => {
