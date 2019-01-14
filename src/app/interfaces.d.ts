@@ -29,7 +29,6 @@ interface ListTaskProps {
 }
 interface ListTaskState {
     items: any;
-
 }
 interface ItemTaskProps {
     item: any;
@@ -38,7 +37,7 @@ interface ItemTaskProps {
     deleteTask: any;
     editTask: any;
     saveTask: any;
-    completedTask:any;
+    completedTask: any;
 }
 interface ItemTaskState{
     item: any;
