@@ -78,7 +78,6 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         items.map((item: any) => {
              (item.completed) ? showClosedCount++ : showActiveCount++;
         });
-        console.log(items);
         this.setState({showClosedCount, showActiveCount});
     };
 
@@ -92,7 +91,7 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                     <div className="row">
                         <div className="card col-lg-12">
                             <div className="card-body">
-                                <h1 className="card-title text-center mb-5">Кооперативный Todo-list</h1>
+                                <h1 className="card-title text-center mb-5">To Do List</h1>
                                 <form onSubmit={this.onSubmit} className="input-group mb-5">
                                     <input type="text" className="form-control" placeholder="Текст новой задачи" aria-label="Текст новой задачи" aria-describedby="btn-add" value={this.state.term} onChange={this.onChange}/>
                                     <div className="input-group-append">
@@ -105,10 +104,19 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                                           editTask={this.editTask}
                                           saveTask={this.saveTask}
                                           completedTask={this.completedTask} />
-                                <TasksStates items={this.state.items}
-                                             showActiveCount={this.state.showActiveCount}
-                                             showClosedCount={this.state.showClosedCount}
-                                />
+
+                                {
+                                    this.state.items.length != 0
+                                        ?
+                                        <React.Fragment>
+                                            <TasksStates items={this.state.items}
+                                                         showActiveCount={this.state.showActiveCount}
+                                                         showClosedCount={this.state.showClosedCount}
+                                            />
+                                        </React.Fragment>
+                                        :
+                                        ''
+                                }
                             </div>
                         </div>
                     </div>
@@ -120,13 +128,18 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
 
 class TasksStates extends React.Component<TasksStatesProps, TasksStatesState> {
     render() {
+
         return (
             <div className="link-group text-center">
-                <span className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">{this.props.items.length}</span></span>
-                <span className="link-group__item">Активные <span className="badge badge-primary badge-pill">{this.props.showActiveCount}</span></span>
-                <span className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">{this.props.showClosedCount}</span></span>
+                    <span className="link-group__item">Все задачи <span
+                        className="badge badge-primary badge-pill">{this.props.items.length}</span></span>
+                <span className="link-group__item">Активные <span
+                    className="badge badge-primary badge-pill">{this.props.showActiveCount}</span></span>
+                <span className="link-group__item">Выполнено <span
+                    className="badge badge-primary badge-pill">{this.props.showClosedCount}</span></span>
             </div>
         );
+
     }
 }
 
