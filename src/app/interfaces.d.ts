@@ -12,10 +12,13 @@ interface ToDoListProps {}
 interface ToDoListState {
     term: string;
     items: Item[];
+    showActiveCount: number;
+    showClosedCount: number;
 }
 interface TasksStatesProps {
     items: Item[];
-    showActiveTasks: any;
+    showActiveCount: number;
+    showClosedCount: number;
 }
 interface TasksStatesState {}
 

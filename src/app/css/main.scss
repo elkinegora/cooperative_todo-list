@@ -81,8 +81,7 @@ button.close {
 	text-decoration: line-through;
 }
 .list-group--completed .btn-group__move,
-.list-group--completed .btn-group__edit,
-.list-group--completed .close {
+.list-group--completed .btn-group__edit {
 	display: none;
 }
 .list-group--completed .btn-group__repeat {

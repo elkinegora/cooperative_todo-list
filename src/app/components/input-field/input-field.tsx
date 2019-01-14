@@ -6,12 +6,9 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
         super(props);
         this.state = {
             term: '',
-            items: [
-                {id: 0, title: 'Задача 1', completed: false, readonly: true, invisible: false},
-                {id: 1, title: 'Задача 2', completed: false, readonly: true, invisible: false},
-                {id: 2, title: 'Задача 3', completed: false, readonly: true, invisible: false},
-                {id: 3, title: 'Задача 4', completed: false, readonly: true, invisible: false}
-            ]
+            items: [],
+            showActiveCount: 0,
+            showClosedCount: 0
         }
     }
 
@@ -35,63 +32,60 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                 title: this.state.term,
                 completed: false,
                 readonly: true,
-                invisible: true
+                invisible: false
             };
             this.setState({
                 term: '',
-                items: [...this.state.items, itemObj]
+                items: [...this.state.items, itemObj],
             });
+            this.getStatusTasks();
         } else {
             alert('Задача должна иметь текст. Попробуй введи его.')
         }
+
     };
 
     deleteTask = (index: number) => {
         const items = this.state.items.concat();
-
         items.splice(index, 1);
         this.setState({items});
+        this.getStatusTasks();
     };
 
     editTask = (index: number) => {
         const items = this.state.items.concat();
-
         items[index].readonly = false;
         this.setState({items});
     };
 
     saveTask = (index: number) => {
         const items = this.state.items.concat();
-
         items[index].readonly = true;
         this.setState({items});
     };
 
     completedTask = (index: number) => {
         const items = this.state.items.concat();
-
         items[index].completed ? (items[index].completed = false) : (items[index].completed = true);
         this.setState({items});
+        this.getStatusTasks();
+
     };
 
-    showActiveTasks = () => {
+    getStatusTasks = () => {
+        let showClosedCount:number = 0;
+        let showActiveCount:number = 0;
         const items = this.state.items.concat();
-
-        items.map((item: any , index: number) => {
-            if(item.completed){
-                items[index].invisible = true;
-            }
+        items.map((item: any) => {
+             (item.completed) ? showClosedCount++ : showActiveCount++;
         });
         console.log(items);
-        this.setState({items});
+        this.setState({showClosedCount, showActiveCount});
     };
 
     render() {
-        const items = this.state.items.concat();
 
-        //     .sort(function(a: any, b:any){
-        //     return a.completed - b.completed;
-        // });
+        const items = this.state.items.concat();
 
         return (
             <React.Fragment>
@@ -112,9 +106,10 @@ export default class ToDoList extends React.Component<ToDoListProps, ToDoListSta
                                           editTask={this.editTask}
                                           saveTask={this.saveTask}
                                           completedTask={this.completedTask} />
-                                {/*<TasksStates items={this.state.items}*/}
-                                             {/*showActiveTasks={this.showActiveTasks}*/}
-                                {/*/>*/}
+                                <TasksStates items={this.state.items}
+                                             showActiveCount={this.state.showActiveCount}
+                                             showClosedCount={this.state.showClosedCount}
+                                />
                             </div>
                         </div>
                     </div>
@@ -128,9 +123,9 @@ class TasksStates extends React.Component<TasksStatesProps, TasksStatesState> {
     render() {
         return (
             <div className="link-group text-center">
-                <a href="#" className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">{this.props.items.length}</span></a>
-                <a href="#" className="link-group__item" onClick={this.props.showActiveTasks}>Активные <span className="badge badge-primary badge-pill">8</span></a>
-                <a href="#" className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">6</span></a>
+                <span className="link-group__item">Все задачи <span className="badge badge-primary badge-pill">{this.props.items.length}</span></span>
+                <span className="link-group__item">Активные <span className="badge badge-primary badge-pill">{this.props.showActiveCount}</span></span>
+                <span className="link-group__item">Выполнено <span className="badge badge-primary badge-pill">{this.props.showClosedCount}</span></span>
             </div>
         );
     }
@@ -159,7 +154,7 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
    render() {
         const item = this.props.item;
         let className = 'list-group__head';
-
+        let classNameItem = 'list-group__item';
         if(!item.readonly) {
             className = className + ' list-group--edit';
         }
@@ -169,12 +164,12 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
        }
 
        if(item.invisible) {
-           className = className + ' list-group--invisible';
+           classNameItem = classNameItem + ' list-group--invisible';
        }
 
         return (
             <React.Fragment>
-                <div className="list-group__item">
+                <div className={classNameItem}>
                     <div className={className}>
                         <div className="list-group__title">
                             <div className="btn-group btn-group__check">
@@ -216,4 +211,3 @@ class ItemTask extends React.Component<ItemTaskProps, ItemTaskState> {
         );
     }
 }
-
