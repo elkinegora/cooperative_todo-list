@@ -13,8 +13,11 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: -1px;
-	//padding: 0.75rem 1.25rem 0.75rem 0;
 	position: relative;
+}
+.btn-group__icon {
+  opacity: 0;
+  transition: 0.2s;
 }
 .list-group__head .input-group
 {
@@ -38,6 +41,11 @@
     padding: 15px 10px;
     cursor: pointer;
 }
+.btn-group__edit:active, .btn-group__complete:active, .btn-group__save:active,button.close:active
+{
+  animation: effect 250ms ease-in;
+  outline: none;
+}
 button.close {
   padding: 8px 15px 15px 10px;
   font-size: 33px;
@@ -46,6 +54,7 @@ button.close {
 .btn-group__save i::before,
 .btn-group__repeat i::before{
   font-size: 23px;
+  color: #7c7d7d;
 }
 .btn-group__complete, .btn-group__move
 {
@@ -60,6 +69,9 @@ button.close {
 	color: #495057;
 	cursor: pointer;
 	text-decoration: none;
+}
+.list-group__head:hover .btn-group__icon {
+  opacity: 1;
 }
 .list-group__head:active,
 .list-group__head:active .list-group__name
@@ -81,13 +93,12 @@ button.close {
 	text-decoration: line-through;
 }
 .list-group--completed .btn-group__move,
-.list-group--completed .btn-group__edit,
-.list-group--completed .close {
+.list-group--completed .btn-group__edit {
 	display: none;
 }
-.list-group--completed .btn-group__repeat {
-	display: inline-block;
-}
+//.list-group--completed .btn-group__repeat {
+//	display: inline-block;
+//}
 .link-group
 {
 	margin-top: 20px;
@@ -127,7 +138,7 @@ button.close {
 .list-group--edit .close{
 	display: none;
 }
-.list-group--edit .btn-group {
+.list-group--edit .btn-group__icon {
 	opacity: 1;
 }
 .list-group--edit .list-group__wraptitle {
@@ -219,7 +230,7 @@ input[type="checkbox"]:disabled + .label-text:before{
 
 @keyframes effect{
   0%{transform: scale(0);}
-  25%{transform: scale(1.3);}
-  75%{transform: scale(1.4);}
+  25%{transform: scale(1.1);}
+  75%{transform: scale(1.2);}
   100%{transform: scale(1);}
 }
